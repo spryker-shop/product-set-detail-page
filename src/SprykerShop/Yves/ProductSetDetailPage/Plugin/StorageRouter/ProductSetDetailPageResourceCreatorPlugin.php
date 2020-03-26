@@ -5,18 +5,16 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerShop\Yves\ProductSetDetailPage\Plugin;
+namespace SprykerShop\Yves\ProductSetDetailPage\Plugin\StorageRouter;
 
 use Generated\Shared\Transfer\ProductSetDataStorageTransfer;
 use Spryker\Shared\ProductSetStorage\ProductSetStorageConstants;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use SprykerShop\Yves\ProductSetDetailPage\Controller\DetailController;
-use SprykerShop\Yves\ShopRouterExtension\Dependency\Plugin\ResourceCreatorPluginInterface;
+use SprykerShop\Yves\StorageRouterExtension\Dependency\Plugin\ResourceCreatorPluginInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @deprecated Use `\SprykerShop\Yves\ProductSetDetailPage\Plugin\StorageRouter\ProductSetDetailPageResourceCreatorPlugin` instead.
- *
  * @method \SprykerShop\Yves\ProductSetDetailPage\ProductSetDetailPageFactory getFactory()
  */
 class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implements ResourceCreatorPluginInterface
@@ -26,7 +24,7 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return ProductSetStorageConstants::PRODUCT_SET_RESOURCE_NAME;
     }
@@ -34,7 +32,7 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     /**
      * @return string
      */
-    public function getModuleName()
+    public function getModuleName(): string
     {
         return 'ProductSetDetailPage';
     }
@@ -42,7 +40,7 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     /**
      * @return string
      */
-    public function getControllerName()
+    public function getControllerName(): string
     {
         return 'Detail';
     }
@@ -50,7 +48,7 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     /**
      * @return string
      */
-    public function getActionName()
+    public function getActionName(): string
     {
         return 'index';
     }
@@ -78,14 +76,20 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
      */
     protected function mapProductViewTransfer(ProductSetDataStorageTransfer $productSetDataStorageTransfer): array
     {
-        $selectedAttributes = [];
+        $productViewTransfers = [];
         foreach ($productSetDataStorageTransfer->getProductAbstractIds() as $idProductAbstract) {
-            $selectedAttributes[$idProductAbstract] = $this->getSelectedAttributes($idProductAbstract);
-        }
+            $productViewTransfer = $this->getFactory()->getProductStorageClient()->findProductAbstractViewTransfer(
+                $idProductAbstract,
+                $this->getLocale(),
+                $this->getSelectedAttributes($idProductAbstract)
+            );
 
-        $productViewTransfers = $this->getFactory()
-            ->getProductStorageClient()
-            ->getProductAbstractViewTransfers($productSetDataStorageTransfer->getProductAbstractIds(), $this->getLocale(), $selectedAttributes);
+            if ($productViewTransfer === null) {
+                continue;
+            }
+
+            $productViewTransfers[] = $productViewTransfer;
+        }
 
         return $productViewTransfers;
     }
