@@ -32,7 +32,7 @@ interface ProductSetDetailPageToProductStorageClientInterface
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param list<\Generated\Shared\Transfer\ProductViewTransfer> $productViewTransfers
+     * @param array<\Generated\Shared\Transfer\ProductViewTransfer> $productViewTransfers
      *
      * @return array<int, array<string, string>>
      */
