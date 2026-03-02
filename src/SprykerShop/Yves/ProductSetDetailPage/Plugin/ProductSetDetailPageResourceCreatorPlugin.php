@@ -106,9 +106,6 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
         return isset($attributes[$idProductAbstract]) ? array_filter($attributes[$idProductAbstract]) : [];
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     protected function getRequest(): Request
     {
         return $this->getContainer()->get(static::SERVICE_REQUEST);

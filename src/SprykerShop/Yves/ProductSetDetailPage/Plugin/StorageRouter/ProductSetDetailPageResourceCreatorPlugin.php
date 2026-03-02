@@ -24,33 +24,21 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
      */
     protected const SERVICE_REQUEST = 'request';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return ProductSetStorageConstants::PRODUCT_SET_RESOURCE_NAME;
     }
 
-    /**
-     * @return string
-     */
     public function getModuleName(): string
     {
         return 'ProductSetDetailPage';
     }
 
-    /**
-     * @return string
-     */
     public function getControllerName(): string
     {
         return 'Detail';
     }
 
-    /**
-     * @return string
-     */
     public function getActionName(): string
     {
         return 'index';
@@ -110,9 +98,6 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
         return isset($attributes[$idProductAbstract]) ? array_filter($attributes[$idProductAbstract]) : [];
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     protected function getRequest(): Request
     {
         return $this->getContainer()->get(static::SERVICE_REQUEST);

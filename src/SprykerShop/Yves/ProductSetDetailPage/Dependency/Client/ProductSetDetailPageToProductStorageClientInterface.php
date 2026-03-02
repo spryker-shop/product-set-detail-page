@@ -12,13 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface ProductSetDetailPageToProductStorageClientInterface
 {
-    /**
-     * @param int $idProductAbstract
-     * @param string $localeName
-     * @param array $selectedAttributes
-     *
-     * @return \Generated\Shared\Transfer\ProductViewTransfer|null
-     */
     public function findProductAbstractViewTransfer(int $idProductAbstract, string $localeName, array $selectedAttributes = []): ?ProductViewTransfer;
 
     /**

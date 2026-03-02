@@ -13,17 +13,11 @@ use SprykerShop\Yves\ProductSetDetailPage\Dependency\Client\ProductSetDetailPage
 
 class ProductSetDetailPageFactory extends AbstractFactory
 {
-    /**
-     * @return \SprykerShop\Yves\ProductSetDetailPage\Dependency\Client\ProductSetDetailPageToProductSetStorageClientInterface
-     */
     public function getProductSetStorageClient(): ProductSetDetailPageToProductSetStorageClientInterface
     {
         return $this->getProvidedDependency(ProductSetDetailPageDependencyProvider::CLIENT_PRODUCT_SET_STORAGE);
     }
 
-    /**
-     * @return \SprykerShop\Yves\ProductSetDetailPage\Dependency\Client\ProductSetDetailPageToProductStorageClientInterface
-     */
     public function getProductStorageClient(): ProductSetDetailPageToProductStorageClientInterface
     {
         return $this->getProvidedDependency(ProductSetDetailPageDependencyProvider::CLIENT_PRODUCT_STORAGE);
