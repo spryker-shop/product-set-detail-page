@@ -24,27 +24,49 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
      */
     protected const SERVICE_REQUEST = 'request';
 
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
     public function getType(): string
     {
         return ProductSetStorageConstants::PRODUCT_SET_RESOURCE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
     public function getModuleName(): string
     {
         return 'ProductSetDetailPage';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
     public function getControllerName(): string
     {
         return 'Detail';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
     public function getActionName(): string
     {
         return 'index';
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param array<string, mixed> $data
      *
      * @return array<string, mixed>

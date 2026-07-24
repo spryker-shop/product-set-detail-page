@@ -27,6 +27,8 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     protected const SERVICE_REQUEST = 'request';
 
     /**
+     * {@inheritDoc}
+     *
      * @return string
      */
     public function getType()
@@ -35,6 +37,8 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return string
      */
     public function getModuleName()
@@ -43,6 +47,8 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return string
      */
     public function getControllerName()
@@ -51,6 +57,8 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return string
      */
     public function getActionName()
@@ -59,9 +67,9 @@ class ProductSetDetailPageResourceCreatorPlugin extends AbstractPlugin implement
     }
 
     /**
-     * @param array<string, mixed> $data
+     * {@inheritDoc}
      *
-     * @return array
+     * @param array<string, mixed> $data
      */
     public function mergeResourceData(array $data): array
     {
