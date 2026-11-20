@@ -28,17 +28,37 @@
             },
         } only %}
     {% endif %}
+
+    {# The product views carry no category path: the traceable events add it to the tracked products from here, read for the whole set at once. #}
+    {% block productTrackingDetails %}
+        {% widget 'ProductTrackingDetailsWidget' args [data.views] only %}{% endwidget %}
+    {% endblock %}
 {% endblock %}
 
 {% block eventTracker %}
-    {% set products = data.views
-        | filter(product => product.idProductConcrete is not empty and product.available)
-        | map(product => {
-            sku: product.sku,
-            price: can('SeePricePermissionPlugin') ? product.prices.DEFAULT | default : null,
-            available: product.idProductConcrete is not empty and product.available,
-        })
-    %}
+    {# The tracking data are built only while the storefront tracks user actions: the traceable event widget is registered and the visitor has not turned the tracking off. #}
+    {% set isUserActionTrackingEnabled = findWidget('TraceableEventWidget').parameters.isUserActionTrackingEnabled ?? false %}
+
+    {% set products = [] %}
+    {% if isUserActionTrackingEnabled %}
+        {% for product in data.views | filter(product => product.idProductConcrete is not empty and product.available) %}
+            {% set trackingCategories = [] %}
+            {% for categoryName in product.categoryPath | default([]) %}
+                {% set trackingCategories = trackingCategories | merge([{ name: categoryName }]) %}
+            {% endfor %}
+            {% set products = products | merge([{
+                sku: product.sku,
+                abstractSku: product.abstractSku | default(null),
+                name: product.name,
+                abstractName: product.abstractName | default(null),
+                brand: product.brand | default(null),
+                variant: product.selectedVariantAttributes | default([]) | reduce((values, value) => values | merge([value]), []),
+                categories: trackingCategories,
+                price: can('SeePricePermissionPlugin') ? product.prices.DEFAULT | default : null,
+                available: product.available,
+            }]) %}
+        {% endfor %}
+    {% endif %}
     {% set events = {
         list: events.list  | merge([
             {

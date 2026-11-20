@@ -13,6 +13,16 @@
     <transfer name="ProductView">
         <property name="idProductAbstract" type="int"/>
         <property name="attributeMap" type="AttributeMapStorage"/>
+        <property name="name" type="string"/>
+        <property name="sku" type="string"/>
+        <property name="abstractSku" type="string"/>
+        <property name="idProductConcrete" type="int"/>
+        <property name="available" type="bool"/>
+        <property name="prices" type="array" singular="prices"/>
+        <property name="abstractName" type="string" description="The name of the abstract product."/>
+        <property name="selectedVariantAttributes" type="array" singular="selectedVariantAttribute" description="The super attributes of the concrete product the view shows, attribute key to value, ordered by attribute key as strings, e.g. {&quot;color&quot;: &quot;Red&quot;, &quot;storage_capacity&quot;: &quot;64 GB&quot;}; empty without a concrete product."/>
+        <property name="categoryPath" type="string[]" singular="categoryName" description="The category names of the product, top level first, without the root category."/>
+        <property name="brand" type="string" description="Brand of the product, the value of its brand attribute; null when it has none."/>
     </transfer>
 
     <transfer name="AttributeMapStorage">
